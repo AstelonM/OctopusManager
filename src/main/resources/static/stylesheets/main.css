@@ -1,0 +1,43 @@
+.container, .container-fluid {
+    margin-top: 100px;
+}
+
+.navbar {
+    width: 100vw;
+    top: 0;
+    left: 0;
+}
+
+.sidebar {
+    top: 100px;
+}
+
+textarea {
+    resize: none;
+}
+
+.console {
+    height: 70vh;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+.console-line {
+    margin-left: 10px;
+}
+
+.breadcrumb {
+    margin-bottom: 0;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0;
+}
+
+.no-bottom-padding {
+    padding-bottom: 0;
+}
+
+.alert {
+    width: 30vw;
+}
