@@ -1,0 +1,14 @@
+server:
+  port: 8080
+  ssl:
+    enabled: false
+    # The type of the key store, only supports JKS and PKCS12
+    key-store-type: ""
+    # Path to the key store that contains the certificate
+    key-store: ""
+    # The password used to access the key store
+    key-store-password: ""
+    # The alias of the key inside the key store
+    key-alias: ""
+    # The password used to access the key in the key store
+    key-password: ""
