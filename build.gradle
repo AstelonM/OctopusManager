@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.astelon'
-version = '1.0.1'
+version = '1.0.1.1'
 sourceCompatibility = '11'
 
 frontend {
