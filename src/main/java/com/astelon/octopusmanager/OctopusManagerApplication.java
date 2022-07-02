@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -19,8 +20,12 @@ public class OctopusManagerApplication {
             Path config = Path.of("config.yml");
             if (!Files.exists(config)) {
                 System.out.println("Could not find config.yml, creating a default one.");
-                OctopusManagerApplication.class.getClassLoader().getResourceAsStream("config.yml");
-                Files.createFile(config);
+                InputStream defaultConfig = OctopusManagerApplication.class.getClassLoader().getResourceAsStream("config.yml");
+                if (defaultConfig == null) {
+                    System.out.println("Could not find the default config.yml somehow. You may want to download OctopusManager again.");
+                    return;
+                }
+                Files.copy(defaultConfig, config);
             }
             SpringApplication.run(OctopusManagerApplication.class, args);
         } catch (IOException e) {
