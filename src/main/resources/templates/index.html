@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+  <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootswatch@4.6.0/dist/darkly/bootstrap.min.css"
+      crossorigin="anonymous"
+  />
+  <link href="/stylesheets/main.css" rel="stylesheet"/>
+  <title>OctopusManager</title>
+  <meta id="consoleCacheSize" name="consoleCacheSize" th:content="${consoleCacheSize}"/>
+  <meta id="maxFileSize" name="maxFileSize" th:content="${maxFileSize}"/>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="/built/bundle.js"></script>
+  <script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js" crossorigin></script>
+</body>
+</html>

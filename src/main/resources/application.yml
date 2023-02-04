@@ -1,0 +1,23 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: "100MB"
+      max-request-size: "100MB"
+  config:
+    import:
+      - "file:./config.yml"
+      - "optional:file:./servers.yml"
+  datasource:
+    url: "jdbc:h2:file:./data/users;AUTO_RECONNECT=TRUE"
+  jpa:
+    hibernate:
+      ddl-auto: "update"
+  session:
+    jdbc:
+      initialize-schema: always
+app:
+  consoleCacheSize: 500
+  maxFileSize: "2MB"
+logging:
+  file:
+    path: ./logs

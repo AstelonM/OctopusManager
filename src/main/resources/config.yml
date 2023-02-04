@@ -1,0 +1,17 @@
+server:
+  # The port OctopusManager will use.
+  port: 8080
+  # Currently only key stores in JKS or PKCS12 formats are supported for SSL certificates.
+  ssl:
+    # Whether to use HTTPS instead of HTTP.
+    enabled: false
+    # The type of the key store, JKS or PKCS12.
+    key-store-type: ""
+    # Path to the key store that contains the certificate.
+    key-store: ""
+    # The password used to access the key store.
+    key-store-password: ""
+    # The alias of the key inside the key store.
+    key-alias: ""
+    # The password used to access the key in the key store. If the key isn't protected by a password, leave this field commented.
+    # key-password: ""
