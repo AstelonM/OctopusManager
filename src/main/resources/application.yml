@@ -15,6 +15,9 @@ spring:
   session:
     jdbc:
       initialize-schema: always
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 app:
   consoleCacheSize: 500
   maxFileSize: "2MB"

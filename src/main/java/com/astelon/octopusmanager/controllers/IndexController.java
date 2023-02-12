@@ -14,6 +14,7 @@ public class IndexController {
         this.appConfig = appConfig;
     }
 
+    //TODO find an alternative in PathPattern maybe?
     @GetMapping(value = {"/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/**/{y:[\\w\\-]+}"})
     public String showIndex(Model model) {
         model.addAttribute("consoleCacheSize", appConfig.getConsoleCacheSize());
