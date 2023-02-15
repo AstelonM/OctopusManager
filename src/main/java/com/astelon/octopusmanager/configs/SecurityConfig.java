@@ -28,15 +28,15 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/built/**", "/stylesheets/**", "/favicon.ico").permitAll()
-                .antMatchers("/api/login").permitAll()
-                .antMatchers("/", "/api/initialize", "/api/initialized").permitAll()
-                .antMatchers("/api/accounts/create", "/api/accounts/update", "/api/accounts/delete")
+        http.authorizeHttpRequests()
+                .requestMatchers("/built/**", "/stylesheets/**", "/favicon.ico").permitAll()
+                .requestMatchers("/api/login").permitAll()
+                .requestMatchers("/", "/api/initialize", "/api/initialized").permitAll()
+                .requestMatchers("/api/accounts/create", "/api/accounts/update", "/api/accounts/delete")
                 .hasAnyRole("ADMIN", "ROOT")
-                .antMatchers("/api/accounts/create/admin", "/api/accounts/update/admin",
+                .requestMatchers("/api/accounts/create/admin", "/api/accounts/update/admin",
                         "/api/accounts/delete/admin").hasRole("ROOT")
-                .antMatchers("/api/servers/create/**", "/api/servers/remove/**",
+                .requestMatchers("/api/servers/create/**", "/api/servers/remove/**",
                         "/api/servers/edit/**").hasAnyRole("ADMIN", "ROOT")
                 .anyRequest().authenticated()
                 .and().httpBasic().disable()
