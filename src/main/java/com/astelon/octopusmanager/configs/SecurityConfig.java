@@ -39,13 +39,17 @@ public class SecurityConfig {
                 .requestMatchers("/api/servers/create/**", "/api/servers/remove/**",
                         "/api/servers/edit/**").hasAnyRole("ADMIN", "ROOT")
                 .anyRequest().authenticated()
-                .and().httpBasic().disable()
+                .and()
+                .httpBasic().disable()
                 .formLogin().loginPage("/").loginProcessingUrl("/api/login")
                 .successHandler(authenticationHandler()).failureHandler(authenticationHandler())
-                .and().logout().logoutUrl("/api/logout")
+                .and()
+                .logout().logoutUrl("/api/logout")
                 .logoutSuccessHandler(logoutHandler())
-                .and().rememberMe().rememberMeParameter("rememberMe").authenticationSuccessHandler(authenticationHandler())
-                .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                .and()
+                .rememberMe().rememberMeParameter("rememberMe").authenticationSuccessHandler(authenticationHandler())
+                .and()
+                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
         return http.build();
     }
 
