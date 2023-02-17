@@ -12,6 +12,7 @@ import UpdateAccountPage from "./pages/UpdateAccountPage";
 import ManagePage from "./pages/ManagePage";
 import ServerCreationPage from "./pages/ServerCreationPage";
 import EditServerPage from "./pages/EditServerPage";
+import {CompatRouter} from "react-router-dom-v5-compat";
 
 function App() {
   const [initialized, setInitialized] = useState<boolean|null>(null);
@@ -194,7 +195,9 @@ function App() {
 
 ReactDOM.render(
   <BrowserRouter>
-    <App/>
+    <CompatRouter>
+      <App/>
+    </CompatRouter>
   </BrowserRouter>,
   document.getElementById("root")
 );
