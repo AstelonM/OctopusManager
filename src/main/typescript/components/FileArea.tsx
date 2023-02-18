@@ -25,9 +25,9 @@ export default function FileArea({setError, setSuccess}: Props) {
     async function getFileContent(url: string, path: string) {
       try {
         const response = await axios.get(`/api${url}?path=${path}`, { transformResponse: (data) => JSON.parse(JSON.stringify(data)) });
-        if (response.status === 200) {
+        if (response.status === 200)
             setContent(response.data);
-        } else
+        else
           setError("Could not retrieve the file content.");
       } catch (error) {
         setError("Could not retrieve the file content.");
