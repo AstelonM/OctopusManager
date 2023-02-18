@@ -24,7 +24,7 @@ export default function FileArea({setError, setSuccess}: Props) {
   useEffect(() => {
     async function getFileContent(url: string, path: string) {
       try {
-        const response = await axios.get(`/api${url}?path=${path}`, { transformResponse: (data) => JSON.parse(JSON.stringify(data)) });
+        const response = await axios.get(`/api${url}?path=${path}`, { transformResponse: (data) => { return data } });
         if (response.status === 200)
             setContent(response.data);
         else
