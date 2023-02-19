@@ -10,6 +10,7 @@ import axios from "axios";
 import {useHistory, useParams} from "react-router-dom";
 import {User} from "../Utils";
 import Alert from "react-bootstrap/Alert";
+import {useNavigate} from "react-router-dom-v5-compat";
 
 type Props = {
   logoutFunction: () => void
@@ -34,11 +35,11 @@ export default function UpdateAccountPage({logoutFunction, user, role}: Props) {
   const [usernameConflict, setUsernameConflict] = useState(false);
   const [passwordsNotMatching, setPasswordsNotMatching] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!selfUser && user?.role !== "ROOT" && role === "ADMIN")
-      history.push("/");
+      navigate("/");
   }, []);
 
   function submitForm(event: FormEvent<HTMLFormElement>) {
@@ -60,7 +61,7 @@ export default function UpdateAccountPage({logoutFunction, user, role}: Props) {
           else if (response.status === 409)
             setUsernameConflict(true);
           else if (response.status === 403 || response.status === 404)
-            history.push("/");
+            navigate("/");
           else if (response.status === 400)
             setError("The request is invalid.");
           else {
@@ -73,11 +74,11 @@ export default function UpdateAccountPage({logoutFunction, user, role}: Props) {
             const response = await axios.patch("/api/accounts/update/admin",
               {originalUsername: username, newUsername: newUsername, newPassword: pass, admin: admin});
             if (response.status === 204)
-              history.push("/manage");
+              navigate("/manage");
             else if (response.status === 409)
               setUsernameConflict(true);
             else if (response.status === 404)
-              history.push("/");
+              navigate("/");
             else if (response.status === 400)
               setError("The request is invalid.");
             else {
@@ -89,11 +90,11 @@ export default function UpdateAccountPage({logoutFunction, user, role}: Props) {
             const response = await axios.patch("/api/accounts/update",
               {originalUsername: username, newUsername: newUsername, newPassword: pass});
             if (response.status === 204)
-              history.push("/manage");
+              navigate("/manage");
             else if (response.status === 409)
               setUsernameConflict(true);
             else if (response.status === 403 || response.status === 404)
-              history.push("/");
+              navigate("/");
             else if (response.status === 400)
               setError("The request is invalid.");
             else {
@@ -146,8 +147,8 @@ export default function UpdateAccountPage({logoutFunction, user, role}: Props) {
                 <div className="d-flex justify-content-between align-items-center">
                   <div>
                     {selfUser ?
-                    <Button onClick={() => history.push("/servers")}>Cancel</Button> :
-                    <Button onClick={() => history.push("/manage/accounts")}>Cancel</Button>}
+                    <Button onClick={() => navigate("/servers")}>Cancel</Button> :
+                    <Button onClick={() => navigate("/manage/accounts")}>Cancel</Button>}
                   </div>
                   <Button type="submit">Update</Button>
                 </div>

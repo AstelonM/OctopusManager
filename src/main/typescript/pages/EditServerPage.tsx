@@ -10,6 +10,7 @@ import axios from "axios";
 import {useHistory, useParams} from "react-router-dom";
 import {User} from "../Utils";
 import Alert from "react-bootstrap/Alert";
+import {useNavigate} from "react-router-dom-v5-compat";
 
 type Props = {
   logoutFunction: () => void
@@ -32,7 +33,7 @@ export default function EditServerPage({logoutFunction, user}: Props) {
   const [badCommand, setBadCommand] = useState(false);
   const [badDirectory, setBadDirectory] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getServerInfo() {
@@ -45,7 +46,7 @@ export default function EditServerPage({logoutFunction, user}: Props) {
           setTimeBetweenCrashes(response.data["timeBetweenCrashes"]);
           setRestartAttempts(response.data["restartAttempts"]);
         } else if (response.status === 404) {
-          history.push("/");
+          navigate("/");
         } else {
           setError("Could not load the server data.");
         }
@@ -74,7 +75,7 @@ export default function EditServerPage({logoutFunction, user}: Props) {
           timeBetweenCrashes: +timeBetweenCrashes, restartAttempts: +restartAttempts
         });
       if (response.status === 204)
-        history.push("/manage/servers");
+        navigate("/manage/servers");
       else if (response.status === 400) {
         setError("The request is invalid.");
       } else if (response.status == 404) {
@@ -142,7 +143,7 @@ export default function EditServerPage({logoutFunction, user}: Props) {
                                 onChange={e => setRestartAttempts(e.target.value)}/>
                 </Form.Group>
                 <div className="d-flex justify-content-between align-items-center">
-                  <Button onClick={() => history.push("/manage/servers")}>Cancel</Button>
+                  <Button onClick={() => navigate("/manage/servers")}>Cancel</Button>
                   <Button type="submit">Update</Button>
                 </div>
               </Form>

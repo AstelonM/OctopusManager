@@ -10,6 +10,7 @@ import axios from "axios";
 import {useHistory} from "react-router-dom";
 import {User} from "../Utils";
 import Alert from "react-bootstrap/Alert";
+import {useNavigate} from "react-router-dom-v5-compat";
 
 type Props = {
   logoutFunction: () => void
@@ -30,7 +31,7 @@ export default function ServerCreationPage({logoutFunction, user}: Props) {
   const [badCommand, setBadCommand] = useState(false);
   const [badDirectory, setBadDirectory] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
     function submitForm(event: FormEvent<HTMLFormElement>) {
       event.preventDefault();
@@ -52,7 +53,7 @@ export default function ServerCreationPage({logoutFunction, user}: Props) {
             timeBetweenCrashes: +timeBetweenCrashes, restartAttempts: +restartAttempts
           });
         if (response.status === 204)
-          history.push("/servers");
+          navigate("/servers");
         else if (response.status == 400)
           setError("The request is invalid.");
         else if (response.status == 409) {
@@ -123,7 +124,7 @@ export default function ServerCreationPage({logoutFunction, user}: Props) {
                   <Form.Control type="number" value={restartAttempts} onChange={e => setRestartAttempts(e.target.value)}/>
                 </Form.Group>
                 <div className="d-flex justify-content-between align-items-center">
-                  <Button onClick={() => history.push("/servers")}>Cancel</Button>
+                  <Button onClick={() => navigate("/servers")}>Cancel</Button>
                   <Button type="submit">Create</Button>
                 </div>
               </Form>

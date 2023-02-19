@@ -140,29 +140,29 @@ function App() {
           <CompatRoute path="/servers">
             <ServerListPage webSocket={webSocket} webSocketConnected={webSocketConnected} logoutFunction={logout} user={user}/>
           </CompatRoute>
-          <Route path="/initialize">
+          <CompatRoute path="/initialize">
             <Redirect to="/"/>
-          </Route>
-          <Route path="/account/:username">
+          </CompatRoute>
+          <CompatRoute path="/account/:username">
             <UpdateAccountPage logoutFunction={logout} user={user}/>
-          </Route>
+          </CompatRoute>
           <CompatRoute path="/newUser">
             {isAdmin(user) ? <AccountCreationPage type="user" logoutFunction={logout} initialize={initialize}/> :
               <Redirect to="/servers"/>}
           </CompatRoute>
-          <Route path="/newServer">
+          <CompatRoute path="/newServer">
             {isAdmin(user) ? <ServerCreationPage user={user} logoutFunction={logout}/> : <Redirect to="/servers"/>}
-          </Route>
+          </CompatRoute>
           <Route path="/manage">
             {isAdmin(user) ? <ManagePage user={user} webSocket={webSocket} webSocketConnected={webSocketConnected}
                                          logoutFunction={logout}/> : <Redirect to="/servers"/>}
           </Route>
-          <Route path="/editServer/:serverName">
+          <CompatRoute path="/editServer/:serverName">
             {isAdmin(user) ? <EditServerPage user={user} logoutFunction={logout}/> : <Redirect to="/servers"/>}
-          </Route>
-          <Route path="/">
+          </CompatRoute>
+          <CompatRoute path="/">
             <Redirect to="/servers"/>
-          </Route>
+          </CompatRoute>
         </Switch>
       );
     else
