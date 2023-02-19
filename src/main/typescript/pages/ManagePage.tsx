@@ -5,11 +5,12 @@ import {User} from "../Utils";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import AdminSideBar from "../components/AdminSideBar";
-import {Route, Switch, Redirect} from "react-router-dom";
+import {Switch, Redirect} from "react-router-dom";
 import AccountListArea from "../components/AccountListArea";
 import ServerListArea from "../components/ServerListArea";
 import {Client} from "@stomp/stompjs";
 import Alert from "react-bootstrap/Alert";
+import {Navigate, Route, Routes} from "react-router-dom-v5-compat";
 
 type Props = {
   user: User|null
@@ -29,17 +30,12 @@ export default function ManagePage({user, webSocket, webSocketConnected, logoutF
           <AdminSideBar/>
         </Col>
         <Col>
-          <Switch>
-            <Route path="/manage/servers">
-              <ServerListArea webSocket={webSocket} webSocketConnected={webSocketConnected} setError={setError}/>
-            </Route>
-            <Route path="/manage/accounts">
-              <AccountListArea user={user} setError={setError}/>
-            </Route>
-            <Route path="/manage">
-              <Redirect to="/manage/servers"/>
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path="/servers" element={<ServerListArea webSocket={webSocket} webSocketConnected={webSocketConnected}
+                                                            setError={setError}/>}/>
+            <Route path="/accounts" element={<AccountListArea user={user} setError={setError}/>}/>
+            <Route path="/" element={<Navigate to="/manage/servers"/>}/>
+          </Routes>
         </Col>
       </Row>
       <div className="fixed-bottom d-flex justify-content-center align-items-center">

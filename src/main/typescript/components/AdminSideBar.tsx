@@ -1,23 +1,24 @@
 import React, {useState} from "react";
 import {useHistory, useRouteMatch} from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
+import {useMatch, useNavigate} from "react-router-dom-v5-compat";
 
 type ManageType = {
   type: string
 }
 
 export default function AdminSideBar() {
-  const history = useHistory();
-  const match = useRouteMatch("/manage/:type");
+  const navigate = useNavigate();
+  const match = useMatch("/manage/:type");
   const manage = match === null ? "servers" : (match.params as ManageType).type;
   const [selected, setSelected] = useState(manage);
 
   function selectTab(eventKey: string|null) {
     if (eventKey === "accounts") {
-      history.push("/manage/accounts");
+      navigate("/manage/accounts");
       setSelected("accounts");
     } else if (eventKey === "servers") {
-      history.push("/manage/servers");
+      navigate("/manage/servers");
       setSelected("servers");
     }
   }

@@ -153,10 +153,10 @@ function App() {
           <CompatRoute path="/newServer">
             {isAdmin(user) ? <ServerCreationPage user={user} logoutFunction={logout}/> : <Redirect to="/servers"/>}
           </CompatRoute>
-          <Route path="/manage">
+          <CompatRoute path="/manage">
             {isAdmin(user) ? <ManagePage user={user} webSocket={webSocket} webSocketConnected={webSocketConnected}
                                          logoutFunction={logout}/> : <Redirect to="/servers"/>}
-          </Route>
+          </CompatRoute>
           <CompatRoute path="/editServer/:serverName">
             {isAdmin(user) ? <EditServerPage user={user} logoutFunction={logout}/> : <Redirect to="/servers"/>}
           </CompatRoute>

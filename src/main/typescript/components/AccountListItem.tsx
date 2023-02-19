@@ -3,6 +3,7 @@ import {User} from "../Utils";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
 import {ButtonGroup} from "react-bootstrap";
+import {useNavigate} from "react-router-dom-v5-compat";
 
 type Props = {
   user: User
@@ -23,7 +24,7 @@ function canEditCheck(user: User, currentUser: User|null): boolean {
 export default function AccountListItem({user, currentUser, deleteFunction}: Props) {
   const canEdit = canEditCheck(user, currentUser);
   const canDelete = user.username !== currentUser?.username && user.role !== "ROOT";
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <tr>
@@ -32,7 +33,7 @@ export default function AccountListItem({user, currentUser, deleteFunction}: Pro
       <td>
         {canEdit &&
         <ButtonGroup>
-          <Button onClick={() => history.push(`/account/${user.username}`)}>Edit</Button>
+          <Button onClick={() => navigate(`/account/${user.username}`)}>Edit</Button>
           {canDelete && <Button variant="danger" onClick={() => deleteFunction(user.username)}>Delete</Button>}
         </ButtonGroup>}
       </td>

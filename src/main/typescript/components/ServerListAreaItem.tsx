@@ -2,6 +2,7 @@ import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom-v5-compat";
 
 type Props = {
   serverName: string
@@ -10,7 +11,7 @@ type Props = {
 }
 
 export default function ServerListAreaItem({serverName, onlineStatus, removeFunction}: Props) {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <ListGroup.Item className="d-flex justify-content-between align-items-center" as="div">
@@ -19,7 +20,7 @@ export default function ServerListAreaItem({serverName, onlineStatus, removeFunc
         <small>{onlineStatus}</small>
       </div>
       <div>
-        <Button onClick={() => history.push(`/editServer/${serverName}/`)}>Edit</Button>
+        <Button onClick={() => navigate(`/editServer/${serverName}/`)}>Edit</Button>
         <Button variant="danger" onClick={() => removeFunction(serverName)}>Remove</Button>
       </div>
     </ListGroup.Item>

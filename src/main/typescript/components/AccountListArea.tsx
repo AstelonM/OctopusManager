@@ -6,6 +6,7 @@ import AccountListItem from "./AccountListItem";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
+import {useNavigate} from "react-router-dom-v5-compat";
 
 type Props = {
   user: User|null
@@ -16,7 +17,7 @@ export default function AccountListArea({user, setError}: Props) {
   const [users, setUsers] = useState<User[]>([]);
   const [reload, setReload] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getUsers() {
@@ -49,7 +50,7 @@ export default function AccountListArea({user, setError}: Props) {
     <Card>
       <Card.Header className="d-flex justify-content-between align-items-center">
         <Card.Title className="no-bottom-margin">Accounts</Card.Title>
-        <Button onClick={() => history.push("/newUser")}>New Account</Button>
+        <Button onClick={() => navigate("/newUser")}>New Account</Button>
       </Card.Header>
       <Card.Body>
         <Table striped bordered variant="dark">
