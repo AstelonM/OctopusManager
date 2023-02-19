@@ -3,6 +3,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import {useHistory} from "react-router-dom";
 import {canStart} from "../Utils";
+import {useNavigate} from "react-router-dom-v5-compat";
 
 type Props = {
   serverName: string
@@ -14,10 +15,10 @@ type Props = {
 }
 
 export default function ServerListItem({serverName, onlineStatus, startServer, stopServer, killServer, restartServer}: Props) {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   function selectServer() {
-    history.push(`/server/${serverName}/console`);
+    navigate(`/server/${serverName}/console`);
   }
 
   function serverAction(event: React.MouseEvent<Element>, action: number, serverName: string) {

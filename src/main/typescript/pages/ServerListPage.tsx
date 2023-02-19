@@ -13,6 +13,7 @@ import KillServerDialogue from "../components/KillServerDialogue";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
+import {useNavigate} from "react-router-dom-v5-compat";
 
 type Props = {
   user: User|null
@@ -28,7 +29,7 @@ export default function ServerListPage({user, webSocket, webSocketConnected, log
 
   const [error, setError] = useState<string|null>(null);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getServers() {
@@ -128,7 +129,7 @@ export default function ServerListPage({user, webSocket, webSocketConnected, log
             <Card.Header className="d-flex justify-content-between align-items-center">
               <Card.Title className="no-bottom-margin">Servers</Card.Title>
               <div>
-                {isAdmin(user) && <Button onClick={() => history.push("/newServer")}>New Server</Button>}
+                {isAdmin(user) && <Button onClick={() => navigate("/newServer")}>New Server</Button>}
               </div>
             </Card.Header>
             <Card.Body>

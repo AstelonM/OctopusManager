@@ -137,9 +137,9 @@ function App() {
             <ServerPage webSocket={webSocket} webSocketConnected={webSocketConnected} logoutFunction={logout} user={user}
                         consoleCacheSize={consoleCacheSize} maxFileSize={maxFileSize}/>
           </Route>
-          <Route path="/servers">
+          <CompatRoute path="/servers">
             <ServerListPage webSocket={webSocket} webSocketConnected={webSocketConnected} logoutFunction={logout} user={user}/>
-          </Route>
+          </CompatRoute>
           <Route path="/initialize">
             <Redirect to="/"/>
           </Route>
