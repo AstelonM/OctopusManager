@@ -1,13 +1,11 @@
 import {useEffect, useState} from "react";
-import {useHistory, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom-v5-compat";
 
 export default function useFilePath(): string|null {
-  const [path, setPath] = useState(new URLSearchParams(useLocation().search).get("path"));
-  const history = useHistory();
+  const location = useLocation();
+  const [path, setPath] = useState(new URLSearchParams(location.search).get("path"));
   useEffect(() => {
-    return history.listen((location, action) => {
-      setPath(new URLSearchParams(location.search).get("path"));
-    });
-  }, [history]);
+    setPath(new URLSearchParams(location.search).get("path"));
+  }, [location]);
   return path;
 }

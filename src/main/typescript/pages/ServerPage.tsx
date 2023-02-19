@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Switch, Route, Redirect, useParams, useRouteMatch} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -11,6 +11,7 @@ import FileArea from "../components/FileArea";
 import TopBar from "../components/TopBar";
 import {Client} from "@stomp/stompjs";
 import Alert from "react-bootstrap/Alert";
+import {Routes, Route, Navigate} from "react-router-dom-v5-compat";
 
 type Props = {
   user: User|null
@@ -23,7 +24,6 @@ type Props = {
 
 export default function ServerPage({user, webSocket, webSocketConnected, logoutFunction, consoleCacheSize, maxFileSize}: Props) {
   const {serverName} = useParams<ServerName>();
-  const {path, url} = useRouteMatch();
 
   const [error, setError] = useState<string|null>(null);
   const [success, setSuccess] = useState<string|null>(null);
@@ -36,21 +36,13 @@ export default function ServerPage({user, webSocket, webSocketConnected, logoutF
           <SideBar serverName={serverName}/>
         </Col>
         <Col>
-          <Switch>
-            <Route path={`${path}/console`}>
-              <ConsoleArea webSocket={webSocket} webSocketConnected={webSocketConnected} maxLines={consoleCacheSize}
-                           setError={setError}/>
-            </Route>
-            <Route path={`${path}/files`}>
-              <FileListArea maxFileSize={maxFileSize} setError={setError}/>
-            </Route>
-            <Route path={`${path}/file`}>
-              <FileArea setError={setError} setSuccess={setSuccess}/>
-            </Route>
-            <Route path={`${path}`}>
-              <Redirect to={`${url}/console`}/>
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path="/console" element={<ConsoleArea webSocket={webSocket} webSocketConnected={webSocketConnected} 
+                                                                  maxLines={consoleCacheSize} setError={setError}/>}/>
+            <Route path="/files" element={<FileListArea maxFileSize={maxFileSize} setError={setError}/>}/>
+            <Route path="/file" element={<FileArea setError={setError} setSuccess={setSuccess}/>}/>
+            <Route path="/" element={<Navigate to={"console"}/>}/>
+          </Routes>
         </Col>
       </Row>
       <div className="fixed-bottom d-flex justify-content-center align-items-center">

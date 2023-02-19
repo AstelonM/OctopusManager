@@ -1,11 +1,12 @@
 import React, {FormEvent, useEffect, useState} from "react";
-import {useRouteMatch, useHistory, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import useFilePath from "../hooks/FilePath";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {ServerName} from "../Utils";
+import {useNavigate, useResolvedPath} from "react-router-dom-v5-compat";
 
 type Props = {
   setError: (error: string|null) => void
@@ -13,9 +14,9 @@ type Props = {
 }
 
 export default function FileArea({setError, setSuccess}: Props) {
-  const {url} = useRouteMatch();
+  const url = useResolvedPath("").pathname;
   const {serverName} = useParams<ServerName>();
-  const history = useHistory();
+  const navigate = useNavigate();
   const path = useFilePath() as string;
   const pathComponents = path.split("/");
   const fileName = pathComponents[pathComponents.length - 1];
@@ -58,7 +59,7 @@ export default function FileArea({setError, setSuccess}: Props) {
   }
 
   function closeFile() {
-    history.push(`/server/${serverName}/files?path=${path.substring(0, path.length - fileName.length - 1)}`);
+    navigate(`/server/${serverName}/files?path=${path.substring(0, path.length - fileName.length - 1)}`);
   }
 
   function downloadFile() {

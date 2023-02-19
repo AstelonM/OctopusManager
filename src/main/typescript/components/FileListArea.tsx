@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {useHistory, useParams, Link} from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import {File, ServerName} from "../Utils";
 import axios from "axios";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -11,6 +11,7 @@ import FormDialogue from "./FormDialogue";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
+import {useNavigate} from "react-router-dom-v5-compat";
 
 type PathLink = {
   key: string
@@ -49,6 +50,7 @@ type Props = {
   setError: (error: string|null) => void
 }
 
+//TODO replace absolute paths with relative?
 export default function FileListArea({maxFileSize, setError}: Props) {
   const {serverName} = useParams<ServerName>();
   const [files, setFiles] = useState<File[]>([]);
@@ -58,7 +60,7 @@ export default function FileListArea({maxFileSize, setError}: Props) {
   const pathLinks = computePathLinks(path, serverName);
   const [reload, setReload] = useState(false);
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [showDirectory, setShowDirectory] = useState(false);
   const [showFile, setShowFile] = useState(false);
@@ -108,7 +110,7 @@ export default function FileListArea({maxFileSize, setError}: Props) {
             if (dirs.length === 0)
               setError("The server has no directory and is thus invalid.");
             else if (dirs.length === 1) {
-              history.push(`/server/${serverName}/files?path=${dirs[0].name}`);
+              navigate(`/server/${serverName}/files?path=${dirs[0].name}`);
             } else {
               setFiles(response.data);
               setSelectedFiles([]);
@@ -138,15 +140,15 @@ export default function FileListArea({maxFileSize, setError}: Props) {
   function openFile(file: string, directory: boolean, size: number) {
     if (directory) {
       if (path === null) {
-        history.push(`/server/${serverName}/files?path=${file}`);
+        navigate(`/server/${serverName}/files?path=${file}`);
       } else {
-        history.push(`/server/${serverName}/files?path=${path}/${file}`);
+        navigate(`/server/${serverName}/files?path=${path}/${file}`);
       }
     } else {
       if (size >= maxFileSize)
         window.location.href = `/api/server/${serverName}/file?path=${path}/${file}`;
       else
-        history.push(`/server/${serverName}/file?path=${path}/${file}`);
+        navigate(`/server/${serverName}/file?path=${path}/${file}`);
     }
   }
 
@@ -406,14 +408,14 @@ export default function FileListArea({maxFileSize, setError}: Props) {
         </div>
         <div className="d-flex justify-content-start align-items-center">
           {(backPath === null && multipleDirectories) &&
-          <Button style={{"padding": "0"}} variant="secondary" onClick={() => history.push(`/server/${serverName}/files`)}>
+          <Button style={{"padding": "0"}} variant="secondary" onClick={() => navigate(`/server/${serverName}/files`)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
                 <path fillRule="evenodd"
                       d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
             </svg>
           </Button>}
           {backPath !== null &&
-          <Button style={{"padding": "0"}} variant="secondary" onClick={() => history.push(`/server/${serverName}/files?path=${backPath}`)}>
+          <Button style={{"padding": "0"}} variant="secondary" onClick={() => navigate(`/server/${serverName}/files?path=${backPath}`)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
               <path fillRule="evenodd"
                     d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>

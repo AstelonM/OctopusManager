@@ -133,10 +133,10 @@ function App() {
     if (loggedIn)
       return (
         <Switch>
-          <Route path="/server/:serverName">
+          <CompatRoute path="/server/:serverName">
             <ServerPage webSocket={webSocket} webSocketConnected={webSocketConnected} logoutFunction={logout} user={user}
                         consoleCacheSize={consoleCacheSize} maxFileSize={maxFileSize}/>
-          </Route>
+          </CompatRoute>
           <CompatRoute path="/servers">
             <ServerListPage webSocket={webSocket} webSocketConnected={webSocketConnected} logoutFunction={logout} user={user}/>
           </CompatRoute>

@@ -1,24 +1,24 @@
 import React, {useState} from "react";
-import {useHistory, useRouteMatch} from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import {ServerName} from "../Utils";
+import {useMatch, useNavigate} from "react-router-dom-v5-compat";
 
 type LocationType = {
   location: string
 }
 
 export default function SideBar({serverName}: ServerName) {
-  const history = useHistory();
-  const match = useRouteMatch("/server/:serverName/:location");
+  const navigate = useNavigate();
+  const match = useMatch("/server/:serverName/:location");
   const location = match === null ? "console" : (match.params as LocationType).location;
   const [selected, setSelected] = useState(location);
 
   function selectTab(eventKey: string|null) {
     if (eventKey === "files") {
-      history.push(`/server/${serverName}/files`);
+      navigate(`/server/${serverName}/files`);
       setSelected("files");
     } else {
-      history.push(`/server/${serverName}/console`);
+      navigate(`/server/${serverName}/console`);
       setSelected("console");
     }
   }
