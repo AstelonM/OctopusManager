@@ -12,7 +12,7 @@ import UpdateAccountPage from "./pages/UpdateAccountPage";
 import ManagePage from "./pages/ManagePage";
 import ServerCreationPage from "./pages/ServerCreationPage";
 import EditServerPage from "./pages/EditServerPage";
-import {CompatRouter} from "react-router-dom-v5-compat";
+import {CompatRoute, CompatRouter} from "react-router-dom-v5-compat";
 
 function App() {
   const [initialized, setInitialized] = useState<boolean|null>(null);
@@ -146,10 +146,10 @@ function App() {
           <Route path="/account/:username">
             <UpdateAccountPage logoutFunction={logout} user={user}/>
           </Route>
-          <Route path="/newUser">
+          <CompatRoute path="/newUser">
             {isAdmin(user) ? <AccountCreationPage type="user" logoutFunction={logout} initialize={initialize}/> :
               <Redirect to="/servers"/>}
-          </Route>
+          </CompatRoute>
           <Route path="/newServer">
             {isAdmin(user) ? <ServerCreationPage user={user} logoutFunction={logout}/> : <Redirect to="/servers"/>}
           </Route>
@@ -183,12 +183,12 @@ function App() {
   else
     return (
       <Switch>
-        <Route path="/initialize">
+        <CompatRoute path="/initialize">
           <AccountCreationPage type="root" logoutFunction={logout} initialize={initialize}/>
-        </Route>
-        <Route path="/">
+        </CompatRoute>
+        <CompatRoute path="/">
           <Redirect to="/initialize"/>
-        </Route>
+        </CompatRoute>
       </Switch>
     );
 }

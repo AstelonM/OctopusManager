@@ -7,8 +7,8 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import {useHistory} from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
+import {useNavigate} from "react-router-dom-v5-compat";
 
 type Props = {
   type: string
@@ -28,7 +28,7 @@ export default function AccountCreationPage({type, logoutFunction, initialize}: 
   const [notMatching, setNotMatching] = useState(false);
   const [badConfirm, setBadConfirm] = useState(false);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   function submitForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -49,7 +49,7 @@ export default function AccountCreationPage({type, logoutFunction, initialize}: 
           const response = await axios.post("/api/initialize", {username: username, password: password});
           if (response.status === 204) {
             initialize();
-            history.push("/");
+            navigate("/");
           } else if (response.status === 400) {
             setError("The request is invalid.");
           } else if (response.status === 409) {
@@ -72,7 +72,7 @@ export default function AccountCreationPage({type, logoutFunction, initialize}: 
             link = link + "/admin";
           const response = await axios.post(link, {username: username, password: password});
           if (response.status === 204)
-            history.push("/manage/accounts");
+            navigate("/manage/accounts");
           else if (response.status === 400) {
             setError("The request is invalid.");
           } else if (response.status === 409) {
@@ -138,7 +138,7 @@ export default function AccountCreationPage({type, logoutFunction, initialize}: 
                 </Form.Group>
                 <div className="d-flex justify-content-between align-items-center">
                   <div>
-                    {type !== "root" && <Button onClick={() => history.push("/manage/accounts")}>Cancel</Button>}
+                    {type !== "root" && <Button onClick={() => navigate("/manage/accounts")}>Cancel</Button>}
                   </div>
                   <Button type="submit">Create</Button>
                 </div>
