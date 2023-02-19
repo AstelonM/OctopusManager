@@ -178,14 +178,10 @@ function App() {
     );
   else
     return (
-      <Switch>
-        <CompatRoute path="/initialize">
-          <AccountCreationPage type="root" logoutFunction={logout} initialize={initialize}/>
-        </CompatRoute>
-        <CompatRoute path="/">
-          <Redirect to="/initialize"/>
-        </CompatRoute>
-      </Switch>
+      <Routes>
+        <NewRoute path="/initialize" element={<AccountCreationPage type="root" logoutFunction={logout} initialize={initialize}/>}/>
+        <NewRoute path="/" element={<Redirect to="/initialize"/>}/>
+      </Routes>
     );
 }
 
