@@ -12,7 +12,7 @@ import UpdateAccountPage from "./pages/UpdateAccountPage";
 import ManagePage from "./pages/ManagePage";
 import ServerCreationPage from "./pages/ServerCreationPage";
 import EditServerPage from "./pages/EditServerPage";
-import {CompatRoute, CompatRouter} from "react-router-dom-v5-compat";
+import {CompatRoute, CompatRouter, Navigate, Routes, Route as NewRoute} from "react-router-dom-v5-compat";
 
 function App() {
   const [initialized, setInitialized] = useState<boolean|null>(null);
@@ -167,14 +167,10 @@ function App() {
       );
     else
       return (
-        <Switch>
-          <Route exact path="/">
-            <LoginPage loginFunction={login} logoutFunction={logout}/>
-          </Route>
-          <Route path="/">
-            <Redirect to="/"/>
-          </Route>
-        </Switch>
+        <Routes>
+          <NewRoute path="/" element={<LoginPage loginFunction={login} logoutFunction={logout}/>}/>
+          <NewRoute path="/*" element={<Navigate to="/" replace/>}/>
+        </Routes>
       );
   else if (initialized === null)
     return (
