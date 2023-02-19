@@ -7,7 +7,6 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import {useHistory} from "react-router-dom";
 import {User} from "../Utils";
 import Alert from "react-bootstrap/Alert";
 import {useNavigate} from "react-router-dom-v5-compat";

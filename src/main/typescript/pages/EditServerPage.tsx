@@ -7,10 +7,9 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
-import {useHistory, useParams} from "react-router-dom";
 import {User} from "../Utils";
 import Alert from "react-bootstrap/Alert";
-import {useNavigate} from "react-router-dom-v5-compat";
+import {useNavigate, useParams} from "react-router-dom-v5-compat";
 
 type Props = {
   logoutFunction: () => void
@@ -22,7 +21,7 @@ type Params = {
 }
 
 export default function EditServerPage({logoutFunction, user}: Props) {
-  const {serverName} = useParams<Params>();
+  const {serverName} = useParams<"serverName">() as Params;
   const [command, setCommand] = useState("");
   const [workingDirectory, setWorkingDirectory] = useState("");
   const [directories, setDirectories] = useState<string[]>([]);

@@ -1,12 +1,11 @@
 import React, {FormEvent, useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import useFilePath from "../hooks/FilePath";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {ServerName} from "../Utils";
-import {useNavigate, useResolvedPath} from "react-router-dom-v5-compat";
+import {useNavigate, useResolvedPath, useParams} from "react-router-dom-v5-compat";
 
 type Props = {
   setError: (error: string|null) => void
@@ -14,8 +13,8 @@ type Props = {
 }
 
 export default function FileArea({setError, setSuccess}: Props) {
+  const {serverName} = useParams<"serverName">() as ServerName;
   const url = useResolvedPath("").pathname;
-  const {serverName} = useParams<ServerName>();
   const navigate = useNavigate();
   const path = useFilePath() as string;
   const pathComponents = path.split("/");

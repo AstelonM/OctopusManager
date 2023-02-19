@@ -5,7 +5,6 @@ import {User} from "../Utils";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import AdminSideBar from "../components/AdminSideBar";
-import {Switch, Redirect} from "react-router-dom";
 import AccountListArea from "../components/AccountListArea";
 import ServerListArea from "../components/ServerListArea";
 import {Client} from "@stomp/stompjs";

@@ -1,7 +1,6 @@
 import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
-import {useHistory} from "react-router-dom";
 import {useNavigate} from "react-router-dom-v5-compat";
 
 type Props = {

@@ -1,7 +1,6 @@
 import React from "react";
 import {User} from "../Utils";
 import Button from "react-bootstrap/Button";
-import { useHistory } from "react-router-dom";
 import {ButtonGroup} from "react-bootstrap";
 import {useNavigate} from "react-router-dom-v5-compat";
 

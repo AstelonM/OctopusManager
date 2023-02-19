@@ -5,7 +5,6 @@ import {Table} from "react-bootstrap";
 import AccountListItem from "./AccountListItem";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
-import { useHistory } from "react-router-dom";
 import {useNavigate} from "react-router-dom-v5-compat";
 
 type Props = {

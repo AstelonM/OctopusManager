@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import ReactDOM from "react-dom";
-import {BrowserRouter, Route, Switch, Redirect, useHistory} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import ServerListPage from "./pages/ServerListPage";
 import ServerPage from "./pages/ServerPage";
 import LoginPage from "./pages/LoginPage";
@@ -12,14 +12,14 @@ import UpdateAccountPage from "./pages/UpdateAccountPage";
 import ManagePage from "./pages/ManagePage";
 import ServerCreationPage from "./pages/ServerCreationPage";
 import EditServerPage from "./pages/EditServerPage";
-import {CompatRoute, CompatRouter, Navigate, Routes, Route as NewRoute} from "react-router-dom-v5-compat";
+import {CompatRouter, Navigate, Routes, Route, useNavigate} from "react-router-dom-v5-compat";
 
 function App() {
   const [initialized, setInitialized] = useState<boolean|null>(null);
   const [loggedIn, setLoggedIn] = useState<boolean|null>(null);
   const [error, setError] = useState(false);
   const [user, setUser] = useState<User|null>(null);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [webSocket, setWebSocket] = useState<Client|null>(null);
   const [webSocketConnected, setWebSocketConnected] = useState(false);
 
@@ -117,7 +117,7 @@ function App() {
       if (response.status === 200) {
         setUser(null);
         setLoggedIn(false);
-        history.push("/");
+        navigate("/");
       }
     } catch (error) {
       setError(true);
@@ -132,44 +132,37 @@ function App() {
   if (initialized)
     if (loggedIn)
       return (
-        <Switch>
-          <CompatRoute path="/server/:serverName">
+        <Routes>
+          <Route path="/server/:serverName/*" element={
             <ServerPage webSocket={webSocket} webSocketConnected={webSocketConnected} logoutFunction={logout} user={user}
                         consoleCacheSize={consoleCacheSize} maxFileSize={maxFileSize}/>
-          </CompatRoute>
-          <CompatRoute path="/servers">
+          }/>
+          <Route path="/servers" element={
             <ServerListPage webSocket={webSocket} webSocketConnected={webSocketConnected} logoutFunction={logout} user={user}/>
-          </CompatRoute>
-          <CompatRoute path="/initialize">
-            <Redirect to="/"/>
-          </CompatRoute>
-          <CompatRoute path="/account/:username">
-            <UpdateAccountPage logoutFunction={logout} user={user}/>
-          </CompatRoute>
-          <CompatRoute path="/newUser">
-            {isAdmin(user) ? <AccountCreationPage type="user" logoutFunction={logout} initialize={initialize}/> :
-              <Redirect to="/servers"/>}
-          </CompatRoute>
-          <CompatRoute path="/newServer">
-            {isAdmin(user) ? <ServerCreationPage user={user} logoutFunction={logout}/> : <Redirect to="/servers"/>}
-          </CompatRoute>
-          <CompatRoute path="/manage">
-            {isAdmin(user) ? <ManagePage user={user} webSocket={webSocket} webSocketConnected={webSocketConnected}
-                                         logoutFunction={logout}/> : <Redirect to="/servers"/>}
-          </CompatRoute>
-          <CompatRoute path="/editServer/:serverName">
-            {isAdmin(user) ? <EditServerPage user={user} logoutFunction={logout}/> : <Redirect to="/servers"/>}
-          </CompatRoute>
-          <CompatRoute path="/">
-            <Redirect to="/servers"/>
-          </CompatRoute>
-        </Switch>
+          }/>
+          <Route path="/initialize" element={<Navigate to="/" replace/>}/>
+          <Route path="/account/:username" element={<UpdateAccountPage logoutFunction={logout} user={user}/>}/>
+          <Route path="/newUser" element={
+            isAdmin(user) ? <AccountCreationPage type="user" logoutFunction={logout} initialize={initialize}/> : <Navigate to="/servers"/>
+          }/>
+          <Route path="/newServer" element={
+            isAdmin(user) ? <ServerCreationPage user={user} logoutFunction={logout}/> : <Navigate to="/servers"/>
+          }/>
+          <Route path="/manage/*" element={
+            isAdmin(user) ? <ManagePage user={user} webSocket={webSocket} webSocketConnected={webSocketConnected}
+                                        logoutFunction={logout}/> : <Navigate to="/servers"/>
+          }/>
+          <Route path="/editServer/:serverName" element={
+            isAdmin(user) ? <EditServerPage user={user} logoutFunction={logout}/> : <Navigate to="/servers"/>
+          }/>
+          <Route path="/" element={<Navigate to="/servers"/>}/>
+        </Routes>
       );
     else
       return (
         <Routes>
-          <NewRoute path="/" element={<LoginPage loginFunction={login} logoutFunction={logout}/>}/>
-          <NewRoute path="/*" element={<Navigate to="/" replace/>}/>
+          <Route path="/" element={<LoginPage loginFunction={login} logoutFunction={logout}/>}/>
+          <Route path="/*" element={<Navigate to="/" replace/>}/>
         </Routes>
       );
   else if (initialized === null)
@@ -179,8 +172,8 @@ function App() {
   else
     return (
       <Routes>
-        <NewRoute path="/initialize" element={<AccountCreationPage type="root" logoutFunction={logout} initialize={initialize}/>}/>
-        <NewRoute path="/" element={<Redirect to="/initialize"/>}/>
+        <Route path="/initialize" element={<AccountCreationPage type="root" logoutFunction={logout} initialize={initialize}/>}/>
+        <Route path="/" element={<Navigate to="/initialize"/>}/>
       </Routes>
     );
 }

@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState} from "react";
-import {useParams, Link} from "react-router-dom";
 import {File, ServerName} from "../Utils";
 import axios from "axios";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -11,7 +10,7 @@ import FormDialogue from "./FormDialogue";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
-import {useNavigate} from "react-router-dom-v5-compat";
+import {Link, useNavigate, useParams} from "react-router-dom-v5-compat";
 
 type PathLink = {
   key: string
@@ -52,7 +51,7 @@ type Props = {
 
 //TODO replace absolute paths with relative?
 export default function FileListArea({maxFileSize, setError}: Props) {
-  const {serverName} = useParams<ServerName>();
+  const {serverName} = useParams<"serverName">() as ServerName;
   const [files, setFiles] = useState<File[]>([]);
   const [multipleDirectories, setMultipleDirectories] = useState<boolean|null>(null);
   const path = useFilePath();

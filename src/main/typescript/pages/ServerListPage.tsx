@@ -11,7 +11,6 @@ import Card from "react-bootstrap/Card";
 import {Client} from "@stomp/stompjs";
 import KillServerDialogue from "../components/KillServerDialogue";
 import Button from "react-bootstrap/Button";
-import { useHistory } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import {useNavigate} from "react-router-dom-v5-compat";
 

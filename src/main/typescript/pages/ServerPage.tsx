@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {useParams} from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -11,7 +10,7 @@ import FileArea from "../components/FileArea";
 import TopBar from "../components/TopBar";
 import {Client} from "@stomp/stompjs";
 import Alert from "react-bootstrap/Alert";
-import {Routes, Route, Navigate} from "react-router-dom-v5-compat";
+import {Routes, Route, Navigate, useParams} from "react-router-dom-v5-compat";
 
 type Props = {
   user: User|null
@@ -23,7 +22,7 @@ type Props = {
 }
 
 export default function ServerPage({user, webSocket, webSocketConnected, logoutFunction, consoleCacheSize, maxFileSize}: Props) {
-  const {serverName} = useParams<ServerName>();
+  const {serverName} = useParams<"serverName">() as ServerName;
 
   const [error, setError] = useState<string|null>(null);
   const [success, setSuccess] = useState<string|null>(null);
@@ -37,8 +36,8 @@ export default function ServerPage({user, webSocket, webSocketConnected, logoutF
         </Col>
         <Col>
           <Routes>
-            <Route path="/console" element={<ConsoleArea webSocket={webSocket} webSocketConnected={webSocketConnected} 
-                                                                  maxLines={consoleCacheSize} setError={setError}/>}/>
+            <Route path="/console" element={<ConsoleArea webSocket={webSocket} webSocketConnected={webSocketConnected}
+                                                         maxLines={consoleCacheSize} setError={setError}/>}/>
             <Route path="/files" element={<FileListArea maxFileSize={maxFileSize} setError={setError}/>}/>
             <Route path="/file" element={<FileArea setError={setError} setSuccess={setSuccess}/>}/>
             <Route path="/" element={<Navigate to={"console"}/>}/>

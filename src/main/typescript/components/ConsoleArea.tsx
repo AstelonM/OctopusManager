@@ -1,13 +1,13 @@
 import React, {FormEvent, useEffect, useState} from "react";
 import Card from "react-bootstrap/Card";
 import {canStart, LineType, ServerName} from "../Utils";
-import {useParams} from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import {Client, IMessage, StompSubscription} from "@stomp/stompjs";
 import Form from "react-bootstrap/Form";
 import KillServerDialogue from "./KillServerDialogue";
 import Console from "./Console";
+import {useParams} from "react-router-dom-v5-compat";
 
 let lastId = 0;
 
@@ -25,7 +25,7 @@ type Props = {
 }
 
 export default function ConsoleArea({webSocket, webSocketConnected, maxLines, setError}: Props) {
-  const {serverName} = useParams<ServerName>();
+  const {serverName} = useParams<"serverName">() as ServerName;
   const [onlineStatus, setOnlineStatus] = useState<string|null>(null);
   const [showKill, setShowKill] = useState(false);
   const [lines, setLines] = useState<LineType[]>([]);
