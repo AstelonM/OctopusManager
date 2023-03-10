@@ -10,7 +10,7 @@ import FormDialogue from "./FormDialogue";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
-import {Link, useNavigate, useParams} from "react-router-dom-v5-compat";
+import {Link, useNavigate, useParams} from "react-router-dom";
 
 type PathLink = {
   key: string

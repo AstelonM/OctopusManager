@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import ReactDOM from "react-dom";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, Navigate, Routes, Route, useNavigate} from "react-router-dom";
 import ServerListPage from "./pages/ServerListPage";
 import ServerPage from "./pages/ServerPage";
 import LoginPage from "./pages/LoginPage";
@@ -12,7 +12,6 @@ import UpdateAccountPage from "./pages/UpdateAccountPage";
 import ManagePage from "./pages/ManagePage";
 import ServerCreationPage from "./pages/ServerCreationPage";
 import EditServerPage from "./pages/EditServerPage";
-import {CompatRouter, Navigate, Routes, Route, useNavigate} from "react-router-dom-v5-compat";
 
 function App() {
   const [initialized, setInitialized] = useState<boolean|null>(null);
@@ -180,9 +179,7 @@ function App() {
 
 ReactDOM.render(
   <BrowserRouter>
-    <CompatRouter>
-      <App/>
-    </CompatRouter>
+    <App/>
   </BrowserRouter>,
   document.getElementById("root")
 );

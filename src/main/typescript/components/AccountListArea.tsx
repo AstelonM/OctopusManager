@@ -5,7 +5,7 @@ import {Table} from "react-bootstrap";
 import AccountListItem from "./AccountListItem";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
-import {useNavigate} from "react-router-dom-v5-compat";
+import {useNavigate} from "react-router-dom";
 
 type Props = {
   user: User|null

@@ -3,7 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import {isAdmin, User} from "../Utils";
-import {useNavigate} from "react-router-dom-v5-compat";
+import {useNavigate} from "react-router-dom";
 
 type Props = {
   logoutFunction: () => void

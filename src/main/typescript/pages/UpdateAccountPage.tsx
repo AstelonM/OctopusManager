@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import {User} from "../Utils";
 import Alert from "react-bootstrap/Alert";
-import {useNavigate, useParams} from "react-router-dom-v5-compat";
+import {useNavigate, useParams} from "react-router-dom";
 
 type Props = {
   logoutFunction: () => void

@@ -1,7 +1,7 @@
 import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
-import {useNavigate} from "react-router-dom-v5-compat";
+import {useNavigate} from "react-router-dom";
 
 type Props = {
   serverName: string

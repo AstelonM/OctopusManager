@@ -12,7 +12,7 @@ import {Client} from "@stomp/stompjs";
 import KillServerDialogue from "../components/KillServerDialogue";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
-import {useNavigate} from "react-router-dom-v5-compat";
+import {useNavigate} from "react-router-dom";
 
 type Props = {
   user: User|null

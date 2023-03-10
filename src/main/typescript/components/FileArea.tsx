@@ -5,7 +5,7 @@ import useFilePath from "../hooks/FilePath";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {ServerName} from "../Utils";
-import {useNavigate, useResolvedPath, useParams} from "react-router-dom-v5-compat";
+import {useNavigate, useResolvedPath, useParams} from "react-router-dom";
 
 type Props = {
   setError: (error: string|null) => void

@@ -7,7 +7,7 @@ import {Client, IMessage, StompSubscription} from "@stomp/stompjs";
 import Form from "react-bootstrap/Form";
 import KillServerDialogue from "./KillServerDialogue";
 import Console from "./Console";
-import {useParams} from "react-router-dom-v5-compat";
+import {useParams} from "react-router-dom";
 
 let lastId = 0;
 

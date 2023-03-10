@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Nav from "react-bootstrap/Nav";
 import {ServerName} from "../Utils";
-import {useMatch, useNavigate} from "react-router-dom-v5-compat";
+import {useMatch, useNavigate} from "react-router-dom";
 
 type LocationType = {
   location: string

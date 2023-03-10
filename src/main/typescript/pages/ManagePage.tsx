@@ -9,7 +9,7 @@ import AccountListArea from "../components/AccountListArea";
 import ServerListArea from "../components/ServerListArea";
 import {Client} from "@stomp/stompjs";
 import Alert from "react-bootstrap/Alert";
-import {Navigate, Route, Routes} from "react-router-dom-v5-compat";
+import {Navigate, Route, Routes} from "react-router-dom";
 
 type Props = {
   user: User|null

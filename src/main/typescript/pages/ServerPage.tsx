@@ -10,7 +10,7 @@ import FileArea from "../components/FileArea";
 import TopBar from "../components/TopBar";
 import {Client} from "@stomp/stompjs";
 import Alert from "react-bootstrap/Alert";
-import {Routes, Route, Navigate, useParams} from "react-router-dom-v5-compat";
+import {Routes, Route, Navigate, useParams} from "react-router-dom";
 
 type Props = {
   user: User|null
